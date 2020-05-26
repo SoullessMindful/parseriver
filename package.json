@@ -1,0 +1,41 @@
+{
+  "name": "parseriver",
+  "version": "1.0.0",
+  "description": "ParseRiver: a monadic parser library for TypeScript and JavaScript",
+  "keywords": [
+    "parser",
+    "parsing",
+    "combinator",
+    "functional",
+    "monadic"
+  ],
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SoullessMindful/parseriver.git"
+  },
+  "author": {
+    "name": "Sławomir Kusiński",
+    "url": "https://github.com/SoullessMindful"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SoullessMindful/parseriver/issues"
+  },
+  "homepage": "https://github.com/SoullessMindful/parseriver#readme",
+  "devDependencies": {
+    "typescript": "^3.9.3",
+    "eslint": "^6.8.0",
+    "eslint-config-standard-with-typescript": "^16.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  }
+}
