@@ -13,7 +13,8 @@
   "types": "./lib/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc -w"
+    "dev": "tsc -w",
+    "test": "jest"
   },
   "repository": {
     "type": "git",

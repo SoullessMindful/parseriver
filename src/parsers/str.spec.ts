@@ -56,9 +56,9 @@ describe('str: Property testing', () => {
           }
           const state = parser.apply(prevState)
 
-          return state.__type__ === 'ResultState' &&
-            state.result === pattern &&
-            state.index === prevIndex + pattern.length
+          return state.__type__ === 'ResultState' && // returned ParserState is a ResultState
+            state.result === pattern && // the tested string is a result
+            state.index === prevIndex + pattern.length // the index has shifted by the length of the tested string
         })
     )
   })
@@ -77,8 +77,8 @@ describe('str: Property testing', () => {
 
           if (prefix === '' || (prefix + pattern).startsWith(pattern)) return true // exclude cases when input might be correct
 
-          return state.__type__ === 'ErrorState' &&
-            state.index === prevIndex
+          return state.__type__ === 'ErrorState' && // returned ParserState is an ErrorState
+            state.index === prevIndex // the index has not changed
         })
     )
   })
