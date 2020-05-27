@@ -1,4 +1,3 @@
-import { ValidState } from './state';
 export type ParserState<T> = InitialState | ResultState<T> | ErrorState
 export type IntermediateState<T> = ResultState<T> | ErrorState
 export type ValidState<T> = InitialState | ResultState<T>
