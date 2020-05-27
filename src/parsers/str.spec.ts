@@ -1,5 +1,7 @@
+import { ValidState } from './../state'
 import { str } from './str'
 import each from 'jest-each'
+import * as fc from 'fast-check'
 
 describe('str: Unit testing', () => {
   each([
@@ -41,5 +43,23 @@ describe('str: Unit testing', () => {
 })
 
 describe('str: Property testing', () => {
+  test('if it properly parses correct string', () => {
+    fc.assert(
+      fc.property(fc.string(), fc.string(), fc.anything(), fc.nat(),
+        (pattern, remainder, prevResult, prevIndex) => {
+          const parser = str(pattern)
+          const prevState: ValidState<any> = {
+            __type__: 'ResultState',
+            result: prevResult,
+            index: prevIndex,
+            text: pattern + remainder
+          }
+          const state = parser.apply(prevState)
 
+          return state.__type__ === 'ResultState' &&
+            state.result === pattern &&
+            state.index === prevIndex + pattern.length
+        })
+    )
+  })
 })
