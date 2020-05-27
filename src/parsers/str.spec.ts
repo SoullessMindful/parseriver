@@ -62,4 +62,24 @@ describe('str: Property testing', () => {
         })
     )
   })
+  test('if it properly returns an error when parsing incorrect string', () => {
+    fc.assert(
+      fc.property(fc.string(), fc.string(), fc.string(), fc.anything(), fc.nat(),
+        (pattern, remainder, prefix, prevResult, prevIndex) => {
+          const parser = str(pattern)
+          const prevState: ValidState<any> = {
+            __type__: 'ResultState',
+            result: prevResult,
+            index: prevIndex,
+            text: prefix + pattern + remainder
+          }
+          const state = parser.apply(prevState)
+
+          if (prefix === '' || (prefix + pattern).startsWith(pattern)) return true // exclude cases when input might be correct
+
+          return state.__type__ === 'ErrorState' &&
+            state.index === prevIndex
+        })
+    )
+  })
 })
