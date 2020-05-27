@@ -1,3 +1,4 @@
+import { ValidState } from './state';
 export type ParserState<T> = InitialState | ResultState<T> | ErrorState
 export type IntermediateState<T> = ResultState<T> | ErrorState
 export type ValidState<T> = InitialState | ResultState<T>
@@ -28,14 +29,20 @@ export const ResultState = <T>(result: T, text: string, index: number): ResultSt
   text
 })
 
+ResultState.update = <T>(prevState: ValidState<any>, result: T, shift: number) => ResultState(
+  result,
+  prevState.text.slice(shift),
+  prevState.index + shift
+)
+
 interface ErrorState {
   readonly __type__: 'ErrorState'
   readonly msg: string
   readonly index: number
 }
 
-export const ErrorState = (msg: string, index: number): ErrorState => ({
+export const ErrorState = (prevState: ValidState<any>, msg: string): ErrorState => ({
   __type__: 'ErrorState',
   msg,
-  index
+  index: prevState.index
 })
