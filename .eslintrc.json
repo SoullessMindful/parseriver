@@ -3,6 +3,6 @@
     "standard-with-typescript"
   ],
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.eslint.json"
   }
 }
