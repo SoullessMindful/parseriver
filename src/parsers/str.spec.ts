@@ -22,6 +22,22 @@ describe('str: Unit testing', () => {
       }
     }
   )
+
+  each([
+    ['Drink', 'drink milk!'],
+    ['fail', 'it fails miserably'],
+    ['tooShort 867', 'tooSho'],
+    ['MisMatch', 'MisMatxh'],
+    ['lead&trail', '_lead&trail#']
+  ]).test('if it properly returns an error when parsing incorrect string',
+    (pattern: string, text: string) => {
+      const parser = str(pattern)
+      const state = parser.run(text)
+
+      expect(state.__type__).toEqual('ErrorState')
+      expect(state.index).toBe(0)
+    }
+  )
 })
 
 describe('str: Property testing', () => {
