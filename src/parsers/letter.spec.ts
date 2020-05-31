@@ -23,11 +23,12 @@ describe('letter: Unit testing', () => {
 
   each([
     [' whiteSpace'],
+    ['  whiteSpace'],
     ['_not a Letter'],
     ['\nhead'],
     ['\ttail'],
     ['-r  1 Day1'],
-    ['23ż i81', 'ż']
+    ['23ż i81']
   ]).test('if it properly return an error when the input doesn\'t start with a letter',
     (text: string) => {
       const state = letter.run(text)
