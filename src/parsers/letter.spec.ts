@@ -55,8 +55,9 @@ describe('letter: Property testing', () => {
           const state = letter.apply(prevState)
 
           return (
-            !(state.__type__ === 'ResultState') ||
-            state.result === text.charAt(0)
+            (state.__type__ === 'ResultState')
+              ? state.result === prevState.text.charAt(0) // in a positive case result is the first character of input
+              : true
           )
         }
       )
@@ -87,7 +88,7 @@ describe('letter: Property testing', () => {
 
   test('if it will always fail with digits in front of input string', () => {
     fc.assert(
-      fc.property(fc.string(), fc.anything(), fc.nat(), fc.integer(),
+      fc.property(fc.string(), fc.anything(), fc.nat(), fc.nat(),
         (text, prevResult, prevIndex, digits) => {
           const prevState: ValidState<any> = {
             __type__: 'ResultState',
@@ -97,7 +98,7 @@ describe('letter: Property testing', () => {
           }
           const state = letter.apply(prevState)
 
-          return state.__type__ === 'ErrorState'
+          return state.__type__ === 'ErrorState' // will always fail
         }
       )
     )
