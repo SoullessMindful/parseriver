@@ -1,5 +1,7 @@
 import { letter } from './letter'
 import each from 'jest-each'
+import fc from 'fast-check'
+import { ValidState } from '../state'
 
 describe('letter: Unit testing', () => {
   each([
@@ -37,4 +39,27 @@ describe('letter: Unit testing', () => {
       expect(state.index).toBe(0)
     }
   )
+})
+
+describe('letter: Property testing', () => {
+  test('if the result is the first character of a string in a positive case', () => {
+    fc.assert(
+      fc.property(fc.string(), fc.anything(), fc.nat(),
+        (text, prevResult, prevIndex) => {
+          const prevState: ValidState<any> = {
+            __type__: 'ResultState',
+            result: prevResult,
+            index: prevIndex,
+            text
+          }
+          const state = letter.apply(prevState)
+
+          return (
+            !(state.__type__ === 'ResultState') ||
+            state.result === text.charAt(0)
+          )
+        }
+      )
+    )
+  })
 })
