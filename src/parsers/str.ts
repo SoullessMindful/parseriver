@@ -2,7 +2,7 @@ import { Parser } from './../parser'
 import { ValidState, IntermediateState, ResultState, ErrorState } from '../state'
 
 export const str = (pattern: string): Parser<string> =>
-  Parser.of((state: ValidState<any>): IntermediateState<string> => {
+  Parser.from((state: ValidState<any>): IntermediateState<string> => {
     const {
       text
     } = state

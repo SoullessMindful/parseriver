@@ -19,7 +19,7 @@ export class Parser<T> {
     return this.apply(initialState)
   }
 
-  static of<T> (func: (state: ValidState<any>) => IntermediateState<T>): Parser<T> {
+  static from<T> (func: (state: ValidState<any>) => IntermediateState<T>): Parser<T> {
     return new Parser<T>(func)
   }
 }
