@@ -84,4 +84,22 @@ describe('letter: Property testing', () => {
       )
     )
   })
+
+  test('if it will always fail with digits in front of input string', () => {
+    fc.assert(
+      fc.property(fc.string(), fc.anything(), fc.nat(), fc.integer(),
+        (text, prevResult, prevIndex, digits) => {
+          const prevState: ValidState<any> = {
+            __type__: 'ResultState',
+            result: prevResult,
+            index: prevIndex,
+            text: digits.toString() + text
+          }
+          const state = letter.apply(prevState)
+
+          return state.__type__ === 'ErrorState'
+        }
+      )
+    )
+  })
 })
