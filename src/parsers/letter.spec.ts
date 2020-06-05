@@ -62,4 +62,26 @@ describe('letter: Property testing', () => {
       )
     )
   })
+
+  test('if the index increases by one in a positive case and doesn\'t change in a negative case', () => {
+    fc.assert(
+      fc.property(fc.string(), fc.anything(), fc.nat(),
+        (text, prevResult, prevIndex) => {
+          const prevState: ValidState<any> = {
+            __type__: 'ResultState',
+            result: prevResult,
+            index: prevIndex,
+            text
+          }
+          const state = letter.apply(prevState)
+
+          return (
+            state.__type__ === 'ResultState'
+              ? state.index === prevState.index + 1 // in a positive case increases by 1
+              : state.index === prevState.index // in a negative case doesn't change
+          )
+        }
+      )
+    )
+  })
 })
