@@ -19,6 +19,16 @@ export class Parser<T> {
     return this.apply(initialState)
   }
 
+  bind<R> (transform: (result: T) => Parser<R>): Parser<R> {
+    return Parser.from((state) => {
+      const nextState = this.func(state)
+
+      if (nextState.__type__ === 'ErrorState') return nextState
+
+      return transform(nextState.result).func(nextState)
+    })
+  }
+
   static from<T> (func: (state: ValidState<any>) => IntermediateState<T>): Parser<T> {
     return new Parser<T>(func)
   }
