@@ -46,4 +46,14 @@ export class Parser<T> {
   static from<T> (func: (state: ValidState<any>) => IntermediateState<T>): Parser<T> {
     return new Parser<T>(func)
   }
+
+  static of<T> (result: T): Parser<T> {
+    return Parser.from((state) => ResultState.update(
+      state,
+      result,
+      0
+    ))
+  }
 }
+
+export const success = Parser.of
