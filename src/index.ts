@@ -1,3 +1,3 @@
-export { Parser } from './parser'
+export { Parser, success, failure } from './parser'
 export { str } from './parsers/str'
 export { letter } from './parsers/letter'
