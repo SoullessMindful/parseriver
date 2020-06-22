@@ -1,4 +1,4 @@
-import { ParserState, ValidState, IntermediateState, InitialState, ResultState } from './state'
+import { ParserState, ValidState, IntermediateState, InitialState, ResultState, ErrorState } from './state'
 
 export class Parser<T> {
   private readonly func: (state: ValidState<any>) => IntermediateState<T>
@@ -54,6 +54,15 @@ export class Parser<T> {
       0
     ))
   }
+
+  static zero (msg: string): Parser<any> {
+    return Parser.from((state) => ErrorState(
+      state,
+      msg
+    ))
+  }
 }
 
 export const success = Parser.of
+
+export const failure = Parser.zero
