@@ -1,4 +1,4 @@
-import { ParserState, ValidState, IntermediateState, InitialState } from './state'
+import { ParserState, ValidState, IntermediateState, InitialState, ResultState } from './state'
 
 export class Parser<T> {
   private readonly func: (state: ValidState<any>) => IntermediateState<T>
@@ -17,6 +17,20 @@ export class Parser<T> {
     const initialState = InitialState(text)
 
     return this.apply(initialState)
+  }
+
+  map<R> (callback: (result: T) => R): Parser<R> {
+    return Parser.from((state) => {
+      const nextState = this.func(state)
+
+      if (nextState.__type__ === 'ErrorState') return nextState
+
+      return ResultState.update(
+        nextState,
+        callback(nextState.result),
+        0
+      )
+    })
   }
 
   bind<R> (transform: (result: T) => Parser<R>): Parser<R> {
