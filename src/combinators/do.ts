@@ -8,7 +8,7 @@ import { Parser, success } from '../parser'
 export const $do = <R>(generator: () => Iterator<Parser<any>, R, any>): Parser<R> => {
   const iterator = generator()
 
-  const loop = (result: any): Parser<any> => {
+  const loop = (result?: any): Parser<any> => {
     const iteratorResult = iterator.next(result)
     if (iteratorResult.done === true) {
       return success(iteratorResult.value)
@@ -17,5 +17,5 @@ export const $do = <R>(generator: () => Iterator<Parser<any>, R, any>): Parser<R
     return iteratorResult.value.bind(loop)
   }
 
-  return loop(undefined)
+  return loop()
 }
