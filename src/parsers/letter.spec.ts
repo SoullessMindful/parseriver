@@ -1,4 +1,4 @@
-import { letter } from './letter'
+import { letter } from './regexp'
 import each from 'jest-each'
 import fc from 'fast-check'
 import { ValidState } from '../state'
