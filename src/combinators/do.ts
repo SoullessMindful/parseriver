@@ -5,7 +5,7 @@ import { Parser, success } from '../parser'
  * @param generator The generator function in which body one can combine parsers
  * @returns The Parser that performs all operations combined
  */
-export const $do = <R>(generator: () => Iterator<Parser<any>, R, any>): Parser<R> => {
+export const $do = <R>(generator: () => Iterator<Parser<any>, R, any>): Parser<R> => success(undefined).bind((_) => {
   const iterator = generator()
 
   const loop = (result?: any): Parser<any> => {
@@ -18,4 +18,4 @@ export const $do = <R>(generator: () => Iterator<Parser<any>, R, any>): Parser<R
   }
 
   return loop()
-}
+})
