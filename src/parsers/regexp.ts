@@ -47,3 +47,7 @@ export const letterLatinLower = regexp('letterLatinLower', A_LETTER_LATIN_LOWER_
 const A_DIGIT_IN_FRONT = /^[0-9]/
 
 export const digit = regexp('digit', A_DIGIT_IN_FRONT)
+
+const A_DIGIT_NONZERO_IN_FRONT = /^[1-9]/
+
+export const digitNonzero = regexp('digitNonzero', A_DIGIT_NONZERO_IN_FRONT)
