@@ -31,3 +31,7 @@ const A_LETTER_IN_FRONT = /^[a-zA-Z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u024F\u1E00
 // Latin extended characters without C, D and E blocks
 
 export const letter = regexp('letter', A_LETTER_IN_FRONT)
+
+const A_LETTER_LATIN_IN_FRONT = /^[a-zA-Z]/
+
+export const letterLatin = regexp('letterLatin', A_LETTER_LATIN_IN_FRONT)
