@@ -35,3 +35,7 @@ export const letter = regexp('letter', A_LETTER_IN_FRONT)
 const A_LETTER_LATIN_IN_FRONT = /^[a-zA-Z]/
 
 export const letterLatin = regexp('letterLatin', A_LETTER_LATIN_IN_FRONT)
+
+const A_DIGIT_IN_FRONT = /^[0-9]/
+
+export const digit = regexp('digit', A_DIGIT_IN_FRONT)
