@@ -1,6 +1,11 @@
 import { ParserState, ResultState } from './../state'
 import { Parser } from './../parser'
 
+/**
+ * Takes in multiple parsers and returns a parser that matches all of them one after another
+ * It succeeds if all parsers succeed, the result is an array of all results
+ * @param parsers Parsers to be sequenced
+ */
 export const sequenceOf = (...parsers: Array<Parser<any>>): Parser<any> =>
   Parser.from((state) => {
     const results = []
