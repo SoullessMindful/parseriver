@@ -3,7 +3,7 @@ import {
   ValidState,
   IntermediateState,
   ResultState,
-  ErrorState
+  ErrorState,
 } from '../state'
 
 /**

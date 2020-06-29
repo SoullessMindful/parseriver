@@ -11,7 +11,7 @@ interface InitialState {
 export const InitialState = (text: string): InitialState => ({
   __type__: 'InitialState',
   index: 0,
-  text
+  text,
 })
 
 interface ResultState<T> {
@@ -21,18 +21,22 @@ interface ResultState<T> {
   readonly text: string
 }
 
-export const ResultState = <T>(result: T, text: string, index: number): ResultState<T> => ({
+export const ResultState = <T>(
+  result: T,
+  text: string,
+  index: number
+): ResultState<T> => ({
   __type__: 'ResultState',
   result,
   index,
-  text
+  text,
 })
 
-ResultState.update = <T>(prevState: ValidState<any>, result: T, shift: number) => ResultState(
-  result,
-  prevState.text.slice(shift),
-  prevState.index + shift
-)
+ResultState.update = <T>(
+  prevState: ValidState<any>,
+  result: T,
+  shift: number
+) => ResultState(result, prevState.text.slice(shift), prevState.index + shift)
 
 interface ErrorState {
   readonly __type__: 'ErrorState'
@@ -40,8 +44,11 @@ interface ErrorState {
   readonly index: number
 }
 
-export const ErrorState = (prevState: ValidState<any>, msg: string): ErrorState => ({
+export const ErrorState = (
+  prevState: ValidState<any>,
+  msg: string
+): ErrorState => ({
   __type__: 'ErrorState',
   msg,
-  index: prevState.index
+  index: prevState.index,
 })

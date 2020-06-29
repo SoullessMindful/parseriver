@@ -26,7 +26,9 @@ export const optional = <T>(parser: Parser<T>): Parser<T> =>
  * @param upperBound A maximal number of matches
  * @param parser A parser to be repeatedly matched
  */
-export const between = <T>(lowerBound: number, upperBound: number) => (parser: Parser<T>): Parser<T[]> => {
+export const between = <T>(lowerBound: number, upperBound: number) => (
+  parser: Parser<T>
+): Parser<T[]> => {
   return Parser.from((state) => {
     // In this combinator using mutable state is actually a good idea
     const results = []
@@ -48,7 +50,10 @@ export const between = <T>(lowerBound: number, upperBound: number) => (parser: P
       return ResultState.update(currState, results, 0)
     }
 
-    return ErrorState(state, `Combinator between: Should have found from ${lowerBound} to ${upperBound} matches, but found ${i}`)
+    return ErrorState(
+      state,
+      `Combinator between: Should have found from ${lowerBound} to ${upperBound} matches, but found ${i}`
+    )
   })
 }
 
@@ -58,8 +63,9 @@ export const between = <T>(lowerBound: number, upperBound: number) => (parser: P
  * @param lowerBound A minimal number of matches
  * @param parser A parser to be repeatedly matched
  */
-export const atLeast = <T>(lowerBound: number): ((parser: Parser<T>) => Parser<T[]>) =>
-  between(lowerBound, Infinity)
+export const atLeast = <T>(
+  lowerBound: number
+): ((parser: Parser<T>) => Parser<T[]>) => between(lowerBound, Infinity)
 
 /**
  * Takes a number and parser and returns a parser, that tries to match the given parser repeatedly at most the given number times
@@ -67,16 +73,16 @@ export const atLeast = <T>(lowerBound: number): ((parser: Parser<T>) => Parser<T
  * @param upperBound A maximal number of matches
  * @param parser A parser to be repeatedly matched
  */
-export const atMost = <T>(upperBound: number): ((parser: Parser<T>) => Parser<T[]>) =>
-  between(0, upperBound)
+export const atMost = <T>(
+  upperBound: number
+): ((parser: Parser<T>) => Parser<T[]>) => between(0, upperBound)
 
 /**
  * Takes a parser and returns a parser, that tries to match the given parser until it fails
  * It never fails, if there are no matches the result is an empty array
  * @param parser A parser to be repeatedly matched
  */
-export const many: <T>(parser: Parser<T>) => Parser<T[]> =
-  atLeast(0)
+export const many: <T>(parser: Parser<T>) => Parser<T[]> = atLeast(0)
 
 /**
  * Takes a number and a parser and returns a parser, that tries to match the given parser exactly the given number times
@@ -84,5 +90,6 @@ export const many: <T>(parser: Parser<T>) => Parser<T[]> =
  * In case there is too many matches it just stops parsing
  * @param parser A parser to be repeatedly matched
  */
-export const exactly = <T>(times: number): (parser: Parser<T>) => Parser<T[]> =>
-  between(times, times)
+export const exactly = <T>(
+  times: number
+): ((parser: Parser<T>) => Parser<T[]>) => between(times, times)
