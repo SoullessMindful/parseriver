@@ -51,3 +51,15 @@ export const between = <T>(lowerBound: number, upperBound: number) => (parser: P
     return ErrorState(state, `Combinator between: Should have found from ${lowerBound} to ${upperBound} matches, but found ${i}`)
   })
 }
+
+export const atLeast = <T>(lowerBound: number): ((parser: Parser<T>) => Parser<T[]>) =>
+  between(lowerBound, Infinity)
+
+export const atMost = <T>(upperBound: number): ((parser: Parser<T>) => Parser<T[]>) =>
+  between(0, upperBound)
+
+export const many: <T>(parser: Parser<T>) => Parser<T[]> =
+  atLeast(0)
+
+export const exactly = <T>(times: number): (parser: Parser<T>) => Parser<T[]> =>
+  between(times, times)
