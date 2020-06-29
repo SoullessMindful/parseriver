@@ -1,4 +1,4 @@
-import { ValidState, ParserState, ErrorState } from './../state';
+import { ValidState, ParserState, ErrorState } from './../state'
 import { Parser } from './../parser'
 import { ResultState } from '../state'
 
