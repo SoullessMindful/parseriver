@@ -1,6 +1,5 @@
-import { ValidState, ParserState, ErrorState } from './../state'
+import { ValidState, ParserState, ErrorState, ResultState } from './../state'
 import { Parser } from './../parser'
-import { ResultState } from '../state'
 
 /**
  * Takes a parser and makes it into a new one working the same way as the original one, except it can never fail
