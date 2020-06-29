@@ -37,7 +37,7 @@ export const between = <T>(lowerBound: number, upperBound: number) => (parser: P
     while (true) {
       currState = nextState
       nextState = parser.apply(currState)
-      if (nextState.__type__ === 'ErrorState' || i > upperBound) {
+      if (nextState.__type__ === 'ErrorState' || i >= upperBound) {
         break
       } else {
         results.push(nextState.result)
