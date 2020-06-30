@@ -5,5 +5,7 @@ export {
   letterLatin,
   letterLatinLower,
   letterLatinUpper,
+  digit,
+  digitNonzero,
 } from './parsers/regexp'
 export { $do } from './combinators/do'
