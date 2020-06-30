@@ -16,3 +16,8 @@ export {
   many,
   exactly,
 } from './combinators/multiples'
+export {
+  sequenceOf,
+  surroundedBy,
+  surroundedByExtract,
+} from './combinators/sequences'
