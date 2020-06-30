@@ -50,3 +50,19 @@ export const surroundedBy = <L, R>(
     middleParser,
     rightParser
   ).map(([left, middle, right]) => ({ left, middle, right }))
+
+/**
+ * Takes left and right parsers and then a middle parser and returns a new parser which matches the match of the middle parser surrounded by matches of left and right parsers.
+ * After that it extracts the result of the middle parser
+ * @param leftParser A parser matching content to the left of middleParser
+ * @param rightParser A parser matching content to the left of middleParser
+ * @param middleParser A parser matching middle of the content and thus the result
+ */
+export const surroundedByExtract = <L, R>(
+  leftParser: Parser<L>,
+  rightParser: Parser<R>
+) => <M>(middleParser: Parser<M>): Parser<M> =>
+  surroundedBy(
+    leftParser,
+    rightParser
+  )(middleParser).map((surroundTriple) => surroundTriple.middle)
