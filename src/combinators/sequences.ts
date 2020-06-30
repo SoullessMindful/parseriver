@@ -27,3 +27,26 @@ export const sequenceOf = (...parsers: Array<Parser<any>>): Parser<any> =>
 
     return nextState
   })
+
+interface SurroundTriple<L, M, R> {
+  left: L
+  middle: M
+  right: R
+}
+
+/**
+ * Takes left and right parsers and then a middle parser and returns a new parser which matches the match of the middle parser surrounded by matches of left and right parsers
+ * The result is an object with properties: left, middle, right
+ * @param leftParser A parser matching content to the left of middleParser
+ * @param rightParser A parser matching content to the left of middleParser
+ * @param middleParser A parser matching middle of the content
+ */
+export const surroundedBy = <L, R>(
+  leftParser: Parser<L>,
+  rightParser: Parser<R>
+) => <M>(middleParser: Parser<M>): Parser<SurroundTriple<L, M, R>> =>
+  sequenceOf(
+    leftParser,
+    middleParser,
+    rightParser
+  ).map(([left, middle, right]) => ({ left, middle, right }))
