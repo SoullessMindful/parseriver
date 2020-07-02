@@ -21,3 +21,4 @@ export {
   surroundedBy,
   surroundedByExtract,
 } from './combinators/sequences'
+export { oneOf, onlyOneOf } from './combinators/choices'
