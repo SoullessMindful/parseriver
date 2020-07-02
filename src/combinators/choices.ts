@@ -1,5 +1,5 @@
 import { Parser } from './../parser'
-import { ErrorState } from '../state'
+import { ErrorState, ResultState } from '../state'
 
 /**
  * Takes in multiple parsers and returns a parser that tries to match them to the input state one after another until one of them succeeds
@@ -26,4 +26,42 @@ export const oneOf = (...parsers: Array<Parser<any>>): Parser<any> =>
       state,
       `Combinator choice: none of the below parsers succeeded:\n  ${msg}`
     )
+  })
+
+/**
+ * Takes in multiple parsers and returns a parser that tries to match them to the input state in parallel
+ * Succeed if exactly one of the parsers succeeds, fails otherwise
+ * The result is the result of the only successful parser
+ * @param parsers Parsers to be tried one after another
+ */
+export const onlyOneOf = (...parsers: Array<Parser<any>>): Parser<any> =>
+  Parser.from((state) => {
+    const nextStates = parsers.map((parser) => parser.apply(state))
+
+    const resultStates = nextStates.filter(
+      (nextState) => nextState.__type__ === 'ResultState'
+    ) as Array<ResultState<any>>
+
+    const errorStates = nextStates.filter(
+      (nextState) => nextState.__type__ === 'ResultState'
+    ) as ErrorState[]
+
+    switch (resultStates.length) {
+      case 0: {
+        const msg = errorStates
+          .map((errorState: ErrorState) => errorState.msg)
+          .join(',\n  ')
+        return ErrorState(
+          state,
+          `Combinator onlyOneOf: none of the below parsers succeeded\n  ${msg}`
+        )
+      }
+      case 1:
+        return resultStates[0]
+      default:
+        return ErrorState(
+          state,
+          'Combinator onlyOneOf: there were too many matches'
+        )
+    }
   })

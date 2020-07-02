@@ -2,7 +2,7 @@ export type ParserState<T> = InitialState | ResultState<T> | ErrorState
 export type IntermediateState<T> = ResultState<T> | ErrorState
 export type ValidState<T> = InitialState | ResultState<T>
 
-interface InitialState {
+export interface InitialState {
   readonly __type__: 'InitialState'
   readonly index: 0
   readonly text: string
@@ -14,7 +14,7 @@ export const InitialState = (text: string): InitialState => ({
   text,
 })
 
-interface ResultState<T> {
+export interface ResultState<T> {
   readonly __type__: 'ResultState'
   readonly result: T
   readonly index: number
@@ -38,7 +38,7 @@ ResultState.update = <T>(
   shift: number
 ) => ResultState(result, prevState.text.slice(shift), prevState.index + shift)
 
-interface ErrorState {
+export interface ErrorState {
   readonly __type__: 'ErrorState'
   readonly msg: string
   readonly index: number
