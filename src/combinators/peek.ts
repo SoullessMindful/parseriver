@@ -1,4 +1,4 @@
-import { ResultState } from './../state'
+import { ResultState, ParserState } from './../state'
 import { Parser } from '../parser'
 
 /**
@@ -34,3 +34,11 @@ export const peekSafe = <T>(parser: Parser<T>): Parser<T | undefined> =>
 
     return ResultState.update(state, nextState.result, 0)
   })
+
+/**
+ * Takes in a parser and returns a parser that tries to match the given parser, but doesn't consume the input text
+ * It never fails, the result is the state after matching the given parser
+ * @param parser The parser to be matched without consuming input
+ */
+export const peekState = <T>(parser: Parser<T>): Parser<ParserState<T>> =>
+  Parser.from((state) => ResultState.update(state, parser.apply(state), 0))
