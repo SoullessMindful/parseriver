@@ -22,3 +22,4 @@ export {
   surroundedByExtract,
 } from './combinators/sequences'
 export { oneOf, onlyOneOf } from './combinators/choices'
+export { peek, peekSafe, peekState } from './combinators/peek'
