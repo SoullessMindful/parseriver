@@ -2,9 +2,14 @@ export { Parser, success, failure } from './parser'
 export { str } from './parsers/str'
 export {
   letter,
+  letterLower,
+  letterUpper,
   letterLatin,
   letterLatinLower,
   letterLatinUpper,
+  letterLatinExt,
+  letterLatinExtLower,
+  letterLatinExtUpper,
   digit,
   digitNonzero,
 } from './parsers/regexp'
