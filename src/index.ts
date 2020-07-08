@@ -13,6 +13,7 @@ export {
   digit,
   digitNonzero,
 } from './parsers/regexp'
+export { endOfInput } from './parsers/end'
 export { $do } from './combinators/do'
 export {
   between,
