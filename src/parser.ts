@@ -59,8 +59,18 @@ export class Parser<T> {
   static zero(msg: string): Parser<any> {
     return Parser.from((state) => ErrorState(state, msg))
   }
+
+  static recursive<T>(parserProvider: () => Parser<T>): Parser<T> {
+    return Parser.from((state) => {
+      const parser = parserProvider()
+
+      return parser.func(state)
+    })
+  }
 }
 
 export const success = Parser.of
 
 export const failure = Parser.zero
+
+export const recursive = Parser.recursive
