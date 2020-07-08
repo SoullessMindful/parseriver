@@ -22,6 +22,13 @@ export {
   exactly,
 } from './combinators/multiples'
 export {
+  separatedBy,
+  separatedByBetween,
+  separatedByAtLeast,
+  separatedByAtMost,
+  separatedByExactly,
+} from './combinators/separators'
+export {
   sequenceOf,
   surroundedBy,
   surroundedByExtract,
