@@ -1,4 +1,4 @@
-export { Parser, success, failure } from './parser'
+export { Parser, success, failure, recursive } from './parser'
 export { str } from './parsers/str'
 export {
   letter,
