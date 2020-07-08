@@ -24,7 +24,7 @@ export const oneOf = (...parsers: Array<Parser<any>>): Parser<any> =>
 
     return ErrorState(
       state,
-      `Combinator choice: none of the below parsers succeeded:\n  ${msg}`
+      `Combinator oneOf: none of the below parsers succeeded:\n  ${msg}`
     )
   })
 
