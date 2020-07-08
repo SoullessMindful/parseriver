@@ -69,3 +69,46 @@ export const separatedByBetween = <S>(
  * @param parser parser to match the results
  */
 export const separatedBy = separatedByBetween(0, Infinity)
+
+/**
+ * Matches the second of the given parsers at least lowerBound times, separated by the first of the given parsers
+ * @param lowerBound A minimal number of matches
+ * @param separator parser to match separators
+ * @param trailing optional parameter indicating wheter there should be trailing separators, defaults to 'never'
+ * @param parser parser to match the results
+ */
+export const separatedByAtLeast = (
+  lowerBound: number
+): (<S>(
+  separator: Parser<S>,
+  trailing: 'always' | 'never' | 'optional'
+) => <T>(parser: Parser<T>) => Parser<T[]>) =>
+  separatedByBetween(lowerBound, Infinity)
+
+/**
+ * Matches the second of the given parsers at most upperBound times, separated by the first of the given parsers
+ * @param upperBound A maximal number of matches
+ * @param separator parser to match separators
+ * @param trailing optional parameter indicating wheter there should be trailing separators, defaults to 'never'
+ * @param parser parser to match the results
+ */
+export const separatedByAtMost = (
+  upperBound: number
+): (<S>(
+  separator: Parser<S>,
+  trailing: 'always' | 'never' | 'optional'
+) => <T>(parser: Parser<T>) => Parser<T[]>) => separatedByBetween(0, upperBound)
+
+/**
+ * Matches the second of the given parsers exactly the given number times, separated by the first of the given parsers
+ * @param times An exact number of matches
+ * @param separator parser to match separators
+ * @param trailing optional parameter indicating wheter there should be trailing separators, defaults to 'never'
+ * @param parser parser to match the results
+ */
+export const separatedByExactly = (
+  times: number
+): (<S>(
+  separator: Parser<S>,
+  trailing: 'always' | 'never' | 'optional'
+) => <T>(parser: Parser<T>) => Parser<T[]>) => separatedByBetween(times, times)
