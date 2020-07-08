@@ -36,3 +36,20 @@ export {
 } from './combinators/sequences'
 export { oneOf, onlyOneOf } from './combinators/choices'
 export { peek, peekSafe, peekState } from './combinators/peek'
+export {
+  letters,
+  lettersLower,
+  lettersUpper,
+  lettersLatin,
+  lettersLatinLower,
+  lettersLatinUpper,
+  lettersLatinExt,
+  lettersLatinExtLower,
+  lettersLatinExtUpper,
+  digits,
+  digitsNonzero,
+  decimalUint,
+  decimalInt,
+  decimalUfloat,
+  decimalFloat,
+} from './parsers/compound'
