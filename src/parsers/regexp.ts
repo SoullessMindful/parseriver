@@ -15,10 +15,15 @@ import {
 const regexp = (name: string, r: RegExp): Parser<string> =>
   Parser.from(
     (state: ValidState<any>): IntermediateState<string> => {
+      if (state.text.length === 0) {
+        return ErrorState(state, `Parser ${name}: unexpected end of input`)
+      }
+
       const match = state.text.match(r)
       if (match != null) {
         return ResultState.update(state, match[0], match[0].length)
       }
+
       return ErrorState(
         state,
         `Parser ${name}: was trying to parse ${name} but found "${state.text.charAt(
