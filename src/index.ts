@@ -38,6 +38,12 @@ export {
 export { oneOf, onlyOneOf } from './combinators/choices'
 export { peek, peekSafe, peekState } from './combinators/peek'
 export {
+  space,
+  tab,
+  whitespace,
+  whitespaceMultiline,
+  optionalWhitespace,
+  optionalWhitespaceMultiline,
   letters,
   lettersLower,
   lettersUpper,
