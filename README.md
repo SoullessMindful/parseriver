@@ -10,7 +10,7 @@ Just run:
 
 # Your first parser
 
-You can combine simple built-in parsers using a wide variety of built-in combinators and achieve powerful results with human readable code
+You can combine simple built-in parsers using a wide variety of built-in combinators and achieve powerful results with human readable code.
 
     import {
       str,
@@ -34,7 +34,7 @@ You can combine simple built-in parsers using a wide variety of built-in combina
 
 # Say hi to *$do* notation
 
-Now you don't need haskell to effectively and comfortably pipe parsers
+Now you don't need haskell to effectively and comfortably pipe parsers.
 
     import {
       $do,
@@ -63,3 +63,24 @@ Now you don't need haskell to effectively and comfortably pipe parsers
     )
 
 Can it get more human-readable?
+
+# Use recursion for more power
+
+JavaScript's eager evaluation makes it more difficult to build self-referential parsers. With *recursive* it's easier than ever.
+
+    import {
+      recursive,
+      oneOf,
+      str,
+      decimalFloat,
+      Parser,
+    } from 'parseriver'
+
+    const parser: Parser<number> = recursive(() => oneOf(
+      decimalFloat,
+      surroundedByExtract(str('('), str(')'))(parser)
+    ))
+
+    console.log(
+      parser.run('(((-17.032)))')
+    )
