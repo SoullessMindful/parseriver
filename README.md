@@ -31,3 +31,35 @@ You can combine simple built-in parsers using a wide variety of built-in combina
     console.log(
       parser.run('[Yes,No,No,No,Yes]')
     )
+
+# Say hi to *$do* notation
+
+Now you don't need haskell to effectively and comfortably pipe parsers
+
+    import {
+      $do,
+      str,
+      letters,
+      whitespace,
+      optionalWhitespace,
+    } from 'parseriver'
+
+    const parser = $do(function* () {
+      yield optionalWhitespace
+      yield str('I')
+      yield whitespace
+      yield str('am')
+      yield whitespace
+
+      const name = yield letters
+      yield whitespace
+      const surname = yield letters
+
+      return { name, surname }
+    })
+
+    console.log(
+      parser.run('   I   am  John         Galt')
+    )
+
+Can it get more human-readable?
