@@ -53,9 +53,10 @@ export const decimalInt: Parser<number> = oneOf(
 )
 
 export const decimalUfloat = oneOf(
+  sequenceOf(str('0'), str('.'), digits).map(joinAll),
+  sequenceOf(digitNonzero, digits, str('.'), digits).map(joinAll),
   str('0'),
-  sequenceOf(digitNonzero, digits).map(joinAll),
-  sequenceOf(digitNonzero, digits, str('.'), digits).map(joinAll)
+  sequenceOf(digitNonzero, digits).map(joinAll)
 ).map(parseFloat)
 
 export const decimalFloat: Parser<number> = oneOf(
