@@ -6,7 +6,7 @@ A monadic parser library for TypeScript and JavaScript
 
 Just run:
 
-`npm install parseriver @types/parseriver`
+`npm install parseriver`
 
 # Your first parser
 
