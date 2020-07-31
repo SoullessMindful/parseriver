@@ -9,10 +9,10 @@ import {
 
 /**
  * Parser that checks if a given regular expression is matched by the parsed text
- * @param name A name of resulting parser for the purpose of creating error messages
  * @param r A regular expression to be tested
+ * @param name A name of resulting parser for the purpose of creating error messages
  */
-const regexp = (r: RegExp, name: string = 'regexp'): Parser<string> =>
+export const regexp = (r: RegExp, name: string = 'regexp'): Parser<string> =>
   Parser.from(
     (state: ValidState<any>): IntermediateState<string> => {
       if (state.text.length === 0) {
