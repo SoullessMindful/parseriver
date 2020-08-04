@@ -1,5 +1,19 @@
 import { Parser } from '../parser';
 /**
+ * Parser that checks if a given regular expression is matched by the parsed text
+ * The result is the whole match object, includind group
+ * @param r A regular expression to be tested, it should start with "^"
+ * @param name A name of resulting parser for the purpose of creating error messages
+ */
+export declare const regexpMatch: (r: RegExp, name?: string) => Parser<RegExpMatchArray>;
+/**
+ * Parser that checks if a given regular expression is matched by the parsed text
+ * The result is the matched text
+ * @param r A regular expression to be tested, it should start with "^"
+ * @param name A name of resulting parser for the purpose of creating error messages
+ */
+export declare const regexp: (r: RegExp, name?: string) => Parser<string>;
+/**
  * parses any character
  * fails only if there is end of input
  */

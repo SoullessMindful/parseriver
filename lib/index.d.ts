@@ -1,6 +1,6 @@
 export { Parser, success, failure, recursive } from './parser';
 export { str } from './parsers/str';
-export { anyChar, letter, letterLower, letterUpper, letterLatin, letterLatinLower, letterLatinUpper, letterLatinExt, letterLatinExtLower, letterLatinExtUpper, digit, digitNonzero, } from './parsers/regexp';
+export { regexp, regexpMatch, anyChar, letter, letterLower, letterUpper, letterLatin, letterLatinLower, letterLatinUpper, letterLatinExt, letterLatinExtLower, letterLatinExtUpper, digit, digitNonzero, } from './parsers/regexp';
 export { endOfInput } from './parsers/end';
 export { $do } from './combinators/do';
 export { between, atLeast, atMost, many, exactly, } from './combinators/multiples';
