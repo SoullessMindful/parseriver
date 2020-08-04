@@ -9,19 +9,23 @@ import {
 
 /**
  * Parser that checks if a given regular expression is matched by the parsed text
- * @param r A regular expression to be tested
+ * The result is the whole match object, includind group
+ * @param r A regular expression to be tested, it should start with "^"
  * @param name A name of resulting parser for the purpose of creating error messages
  */
-export const regexp = (r: RegExp, name: string = 'regexp'): Parser<string> =>
+export const regexpMatch = (
+  r: RegExp,
+  name: string = 'regexp'
+): Parser<RegExpMatchArray> =>
   Parser.from(
-    (state: ValidState<any>): IntermediateState<string> => {
+    (state: ValidState<any>): IntermediateState<RegExpMatchArray> => {
       if (state.text.length === 0) {
         return ErrorState(state, `Parser ${name}: unexpected end of input`)
       }
 
       const match = state.text.match(r)
       if (match != null) {
-        return ResultState.update(state, match[0], match[0].length)
+        return ResultState.update(state, match, match[0].length)
       }
 
       return ErrorState(
@@ -32,6 +36,15 @@ export const regexp = (r: RegExp, name: string = 'regexp'): Parser<string> =>
       )
     }
   )
+
+/**
+ * Parser that checks if a given regular expression is matched by the parsed text
+ * The result is the matched text
+ * @param r A regular expression to be tested, it should start with "^"
+ * @param name A name of resulting parser for the purpose of creating error messages
+ */
+export const regexp = (r: RegExp, name: string = 'regexp'): Parser<string> =>
+  regexpMatch(r, name).map((match) => match[0])
 
 // Matches any character
 const ANY_CHAR_IN_FRONT = /^./

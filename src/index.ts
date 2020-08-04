@@ -2,6 +2,7 @@ export { Parser, success, failure, recursive } from './parser'
 export { str } from './parsers/str'
 export {
   regexp,
+  regexpMatch,
   anyChar,
   letter,
   letterLower,
